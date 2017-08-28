@@ -105,9 +105,9 @@ done
 	read domain
 	domain=$(echo "$domain" | tr "[:upper:]" "[:lower:]")
 	while [[ -z "$domain" ]]; do
-        echo ""
+        echo
         printf "%s\n" "The Domain Name CAN NOT be blank"
-        echo ""
+        echo
         echo -ne "Enter the domain to use for the mail account$blue:$reset "
         read domain 
 	domain=$(echo "$domain" | tr "[:upper:]" "[:lower:]")
