@@ -61,22 +61,22 @@ while true; do
   done
 
 # Mail domain menu
-    echo ""
+    echo
     echo -e "$blue==================$reset"
     echo -e "$white MAIL DOMAIN MENU$reset"
     echo -e "$blue==================$reset"
     array=$(printf "%s\n" "${domainlist[@]}")
     echo "$array"
-    echo ""
+    echo
   
     # Get domain
 	echo -ne "Enter the domain to use for the mail group$blue:$reset "
 	read domain
 	domain=$(echo "$domain" | tr "[:upper:]" "[:lower:]")
 	while [[ -z "$domain" ]]; do
-        echo ""
+        echo
         printf "%s\n" "The Domain Name CAN NOT be blank"
-        echo ""
+        echo
         echo -ne "Enter the domain to use for the mail group$blue:$reset "
         read domain 
 	domain=$(echo "$domain" | tr "[:upper:]" "[:lower:]")
