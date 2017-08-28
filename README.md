@@ -1,4 +1,4 @@
-# Creating mail users and distribution groups in LDAP
+# Creating LDAP mail users and distribution groups
 
 ## Mail Accounts
 This tool interactively gathers some preliminary information and creates an email account using an objectClass and user attributes from [pastfix-book.schema](https://github.com/variablenix/ldap-mail-schema/blob/master/postfix-book.schema). Both HTML and plain-text welcome emails are supported and customizable. This tool also assumes there is a `~/.pwf` file that exists containing the LDAP admin credentials so that write access is granted for creating LDAP accounts. This file should always have 400 permissions so that nobody but the root owner has read-only access. If the file does not exist one can use
