@@ -38,7 +38,6 @@ ldapworkdir="/some/path/to/ldap/scripts/mail/groups"
 while true; do
     echo -ne "Email Group Name$blue:$reset "
     read mailgroup
-#mailgroup=$(echo "$first.$last" | tr "[:upper:]" "[:lower:]")
     mailgroup=$(echo "$mailgroup" | tr "[:upper:]" "[:lower:]")
 
     if [[ -z "$mailgroup" ]]; then
