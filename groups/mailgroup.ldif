@@ -1,0 +1,10 @@
+dn: cn=mailgroup,ou=Groups,ou=Mail,dc=example,dc=com
+objectClass: top
+objectClass: organizationalPerson
+objectClass: PostfixBookMailAccount
+mail: mailgroup@domain
+mailEnabled: TRUE
+mailUidNumber: 5000
+mailGidNumber: 5000
+sn: group
+description: mailgroup email distribution group

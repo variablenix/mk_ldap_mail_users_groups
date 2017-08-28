@@ -1,0 +1,19 @@
+dn: uid=username,ou=Mail,dc=example,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: PostfixBookMailAccount
+uid: username
+mail: username@domain
+cn: first last
+sn: last
+mailEnabled: TRUE
+mailUidNumber: 5000
+mailGidNumber: 5000
+description: first's domain mail account
+mailHomeDirectory: /home/vmail/domain/username@domain
+mailStorageDirectory: maildir:/home/vmail/domain/username@domain/Maildir
+mailQuota: 250MB
+userPassword: password
+pwdPolicySubentry: cn=default,ou=pwpolicies,dc=example,dc=com
