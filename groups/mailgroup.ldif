@@ -1,4 +1,4 @@
-dn: mail=mailgroup@domain,ou=Groups,ou=Mail,dc=example,dc=net
+dn: mail=mailgroup@domain,ou=Groups,ou=Mail,dc=example,dc=com
 objectClass: top
 objectClass: organizationalPerson
 objectClass: PostfixBookMailAccount
@@ -9,3 +9,4 @@ mailGidNumber: 5000
 cn: mailgroup
 sn: group
 description: mailgroup@domain distribution group
+pwdPolicySubentry: cn=default,ou=pwpolicies,dc=example,dc=com
