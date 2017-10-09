@@ -1,4 +1,4 @@
-dn: cn=mailgroup,ou=Groups,ou=Mail,dc=example,dc=com
+dn: mail=mailgroup@domain,ou=Groups,ou=Mail,dc=koderoot,dc=net
 objectClass: top
 objectClass: organizationalPerson
 objectClass: PostfixBookMailAccount
@@ -6,5 +6,6 @@ mail: mailgroup@domain
 mailEnabled: TRUE
 mailUidNumber: 5000
 mailGidNumber: 5000
+cn: mailgroup
 sn: group
-description: mailgroup email distribution group
+description: mailgroup@domain distribution group
