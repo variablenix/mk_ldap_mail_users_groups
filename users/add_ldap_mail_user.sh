@@ -28,6 +28,8 @@ yellow="\033[1;40m"
 reset="\033[0m"
 
 # LDAP info
+ldaphost="ldap://ldap.example.com:389"
+ldaptls="true"
 ldapmailou="ou=Mail,dc=example,dc=com"
 ldapadmin="cn=Manager,dc=example,dc=com"
 mailgroupdn="cn=vmail,ou=Groups,dc=example,dc=com"
@@ -154,18 +156,41 @@ sed "s/username/$(echo $username)/g" "$ldapworkdir/temp2" > "$ldapworkdir/temp"
 sed "s/domain/$(echo $domain)/g" "$ldapworkdir/temp" > "$ldapworkdir/temp2"
 
 # Only the LDAP admin can write new entries
-ldapadd -D "$ldapadmin" -y ~/.pwf < "$ldapworkdir/temp2"
+shopt -s nocasematch
+
+if [[ "$ldaptls" == "true" ]]; then
+        ldapadd -H "$ldaphost" -D "$ldapadmin" -ZZ -y ~/.pwf < "$ldapworkdir/temp2"
+else
+        ldapadd -H "$ldaphost" -D "$ldapadmin" -y ~/.pwf < "$ldapworkdir/temp2"
+fi
 
 # Set default password (LDAP password policies set by ppolicy)
-ldappasswd -s "$tempuserpw" -D "$ldapadmin" -x "uid=$username,$ldapmailou" -y ~/.pwf
+if [[ "$ldaptls" == "true" ]]; then
+        ldappasswd -H "$ldaphost" -s "$tempuserpw" -D "$ldapadmin" -ZZ -x "uid=$username,$ldapmailou" -y ~/.pwf
+else
+        ldappasswd -H "$ldaphost" -s "$tempuserpw" -D "$ldapadmin" -x "uid=$username,$ldapmailou" -y ~/.pwf
+fi
 
 # add account to virtual mail access group
-ldapmodify -x -D "$ldapadmin" -Z -y ~/.pwf <<!
+if [[ "$ldaptls" == "true" ]]; then
+
+ldapmodify -H "$ldaphost" -x -D "$ldapadmin" -ZZ -y ~/.pwf <<!
 dn: $mailgroupdn
 changetype: modify
 add: member
 member: uid=$username,$ldapmailou
 !
+
+else
+
+ldapmodify -H "$ldaphost" -x -D "$ldapadmin" -y ~/.pwf <<!
+dn: $mailgroupdn
+changetype: modify
+add: member
+member: uid=$username,$ldapmailou
+!
+
+fi
 
 if [[ $? -eq 0 ]]; then
         echo -e "\033[1;32mSuccessfully added Mail account$reset"
