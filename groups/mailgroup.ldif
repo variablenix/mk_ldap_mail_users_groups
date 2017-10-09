@@ -9,4 +9,3 @@ mailGidNumber: 5000
 cn: mailgroup
 sn: group
 description: mailgroup@domain distribution group
-pwdPolicySubentry: cn=default,ou=pwpolicies,dc=example,dc=com

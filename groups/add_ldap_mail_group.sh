@@ -74,7 +74,7 @@ while true; do
 		continue
 	fi
 
-	$(command -v ldapsearch) -xLLL -b "$mailgroupdn" | grep "$mailgroup@$domain"
+	$(command -v ldapsearch) -xLLL -b "$mailgroupdn" | grep -q "$mailgroup@$domain"
 	if [[ $? -eq 0 ]]; then
 		echo
 		printf "%s\n" "$mailgroup@$domain exists in LDAP"
