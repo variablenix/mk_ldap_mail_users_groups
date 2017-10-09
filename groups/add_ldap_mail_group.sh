@@ -28,6 +28,8 @@ yellow="\033[1;40m"
 reset="\033[0m"
 
 # LDAP info
+ldaphost="ldap://ldap.example.com:389"
+ldaptls="true"
 ldapadmin="cn=Manager,dc=example,dc=com"
 mailgroupdn="ou=Groups,ou=Mail,dc=example,dc=com"
 domainlist=('domain1' 'domain2' 'domain3' 'domain4' 'domain5' 'domain6' 'domain7' 'domain8')
@@ -120,8 +122,15 @@ sed "s/mailgroup/$(echo $mailgroup)/g" "$ldapworkdir/mailgroup.ldif" > "$ldapwor
 sed "s/domain/$(echo $domain)/g" "$ldapworkdir/temp" > "$ldapworkdir/temp2"
 
 # Only the LDAP admin can write new entries
-ldapadd -D "$ldapadmin" -y ~/.pwf < "$ldapworkdir/temp2"
+shopt -s nocasematch
 
+if [[ "$ldaptls" == "true" ]]; then
+        ldapadd -H "$ldaphost" -D "$ldapadmin" -ZZ -y ~/.pwf < "$ldapworkdir/temp2"
+else
+        ldapadd -H "$ldaphost" -D "$ldapadmin" -y ~/.pwf < "$ldapworkdir/temp2"
+fi
+
+# Check status
 if [[ $? -eq 0 ]]; then
         echo -e "\033[1;32mSuccessfully added Email Distribution Group$reset"
         rm "$ldapworkdir/temp"
